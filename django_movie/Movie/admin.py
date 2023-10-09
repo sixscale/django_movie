@@ -16,6 +16,7 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 
+
 #class ReviewAdmin(admin.ModelAdmin):
 
 
