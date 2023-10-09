@@ -4,11 +4,13 @@ from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingSta
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """Категории"""
     list_display = ("id", "name", "url")
     list_display_links = ("name",)
 
 
 class ReviwInLine(admin.TabularInline):
+    """Отзывы на странице фильма"""
     model = Reviews
     extra = 1
     readonly_fields = ("name", "email")
@@ -16,6 +18,7 @@ class ReviwInLine(admin.TabularInline):
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
+    """Фильмы"""
     list_display = ("title", "category", "url", "draft")
     list_filter = ("category", "year")
     search_fields = ("title", "category__name")
@@ -25,7 +28,7 @@ class MovieAdmin(admin.ModelAdmin):
     list_editable = ("draft",)
     fieldsets = (
         (None, {
-            "fields": (("title", "tagline"), )
+            "fields": (("title", "tagline"),)
         }),
         (None, {
             "fields": ("description", "poster"),
@@ -33,7 +36,8 @@ class MovieAdmin(admin.ModelAdmin):
         (None, {
             "fields": (("year", "world_premiere", "country"),)
         }),
-        (None, {
+        ("Actors", {
+            "classes": ("collapse",),
             "fields": (("actors", "directors", "genres", "category"),)
         }),
         (None, {
@@ -47,15 +51,33 @@ class MovieAdmin(admin.ModelAdmin):
 
 @admin.register(Reviews)
 class ReviewAdmin(admin.ModelAdmin):
+    """Отзывы"""
     list_display = ("name", "email", "parent", "movie", "id")
     readonly_fields = ("name", "email")
 
 
-# admin.site.register(Category, CategoryAdmin)
-admin.site.register(Genre)
-# admin.site.register(Movie)
-admin.site.register(MovieShots)
-admin.site.register(Actor)
-admin.site.register(Rating)
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    """Жанры"""
+    list_display = ("name", "url")
+
+
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    """Актеры"""
+    list_display = ("name", "age")
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    """Рейтинг"""
+    list_display = ("star", "movie", "ip")
+
+
+@admin.register(MovieShots)
+class MovieShotsgAdmin(admin.ModelAdmin):
+    """Кадры из фильму"""
+    list_display = ("title", "movie")
+
+
 admin.site.register(RatingStar)
-# admin.site.register(Reviews)
