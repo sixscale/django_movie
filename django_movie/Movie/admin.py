@@ -15,9 +15,9 @@ class MovieAdmin(admin.ModelAdmin):
     search_fields = ("title", "category__name")
 
 
-
-
-#class ReviewAdmin(admin.ModelAdmin):
+@admin.register(Reviews)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "parent", "movie", "id")
 
 
 # admin.site.register(Category, CategoryAdmin)
@@ -27,4 +27,4 @@ admin.site.register(MovieShots)
 admin.site.register(Actor)
 admin.site.register(Rating)
 admin.site.register(RatingStar)
-admin.site.register(Reviews)
+# admin.site.register(Reviews)
